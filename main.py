@@ -24,7 +24,7 @@ def scrape_ETH(page_number, f):
     analysis= soup.find_all('article', class_='card-exterior-Us1ZHpvJ card-AyE8q7_6 stretch-link-title-AyE8q7_6 idea-card-R05xWTMw js-userlink-popup-anchor')
 
     for index, article in enumerate(analysis):
-        description = analysis.find('span', class_='line-clamp-content-t3qFZvNN')
+        description = article.find('span', class_='line-clamp-content-t3qFZvNN')
         if description:
             f.write(f"Page{page_number}, Article {index+1}: {description.text.strip()}\n")
 
