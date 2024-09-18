@@ -11,7 +11,7 @@ def scrape_BTC(page_number, f):
     for index, article in enumerate(articles):
         description = article.find('span', class_='line-clamp-content-t3qFZvNN')
         if description:  
-            f.write(f"Page {page_number}, Article {index+1}: {description.text.strip()}\n")
+            f.write(f"{description.text.strip()}\n")
     
     print(f"Page {page_number} for BTC saved")
 
@@ -26,7 +26,7 @@ def scrape_ETH(page_number, f):
     for index, article in enumerate(analysis):
         description = article.find('span', class_='line-clamp-content-t3qFZvNN')
         if description:
-            f.write(f"Page{page_number}, Article {index+1}: {description.text.strip()}\n")
+            f.write(f"{description.text.strip()}\n")
 
     print(f"Page{page_number} for ETH saved")
     
@@ -54,6 +54,9 @@ def scrape_all_pages(total_pages):
 
 
 
+        
+
 if __name__ == '__main__':
-    total_pages = 10 
+    total_pages = 42 
     scrape_all_pages(total_pages)
+
