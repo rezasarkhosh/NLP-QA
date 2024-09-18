@@ -26,6 +26,7 @@ def normalize_text(text):
 
     text = text.lower()
 
+
    
     text = ' '.join(text.split())
 
