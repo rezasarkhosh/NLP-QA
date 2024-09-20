@@ -12,6 +12,7 @@ def scrape_BTC(page_number, f):
         description = article.find('span', class_='line-clamp-content-t3qFZvNN')
         if description:  
             f.write(f"{description.text.strip()}\n")
+            f.write("___\n")
     
     print(f"Page {page_number} for BTC saved")
 
@@ -27,6 +28,7 @@ def scrape_ETH(page_number, f):
         description = article.find('span', class_='line-clamp-content-t3qFZvNN')
         if description:
             f.write(f"{description.text.strip()}\n")
+            f.write("___\n")
 
     print(f"Page{page_number} for ETH saved")
     

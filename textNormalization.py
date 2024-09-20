@@ -23,58 +23,57 @@ def remove_emojis(text):
     return emoji_pattern.sub(r'', text)
 
 def normalize_text(text):
-
+    
     text = text.lower()
 
-
+    
    
     text = ' '.join(text.split())
 
-   
-    important_words = {'bitcoin', 'btc', 'ethereum', 'eth', 'crypto', 'pump' , 'dump' , 'btcusdt','ethusdt' , 'tether' , }
+    
+    unwanted_words = {'hi', 'hello', 'hey', 'traders', 'bye'}
+    important_words = {'bitcoin', 'btc', 'ethereum', 'eth', 'crypto', 'pump', 'dump', 'btcusdt', 'ethusdt', 'tether'}
 
-   
-    text = text.translate(str.maketrans('', '', string.punctuation.replace('$', '').replace('%', '').replace('.', '').replace('!', '').replace('?', ''))).replace(')' , '')
+    
+    text = text.translate(str.maketrans('', '', string.punctuation.replace('$', '').replace('%', '').replace('.', '').replace('!', '').replace('?', ''))).replace(')', '')
 
     
     text = remove_emojis(text)
 
-   
+    
     custom_stop_words = set(stopwords.words('English')) - important_words
+    
+    all_unwanted_words = custom_stop_words.union(unwanted_words)
 
-   
-    text = ' '.join([word for word in text.split() if word not in custom_stop_words or word in important_words])
+    text = ' '.join([word for word in text.split() if word not in all_unwanted_words])
 
-   
+    
     text = re.sub(r'(?<=\d)[^\d\s](?=\d)', '-', text)
 
-   
+    
     text = re.sub(r'\.{2,}', '.', text)
 
-   
-    text = re.sub(r'(?<!\w)([.!?])', r'\1 ', text)  
+    
+    text = re.sub(r'(?<!\w)([.!?])', r'\1 ', text)
 
-   
+    
     text = text.strip()
 
     return text
 
+def process_file(input_file, output_file):
+    
+    with open(input_file, 'r') as file:
+        text = file.read()
 
-with open('data/BTC.txt', 'r') as file:
-    btc_text = file.read()
+    analyses = text.split("___")
 
-normalized_text = normalize_text(btc_text)
+    with open(output_file, 'w') as f:
+        for analysis in analyses:
+            normalized_analysis = normalize_text(analysis.strip())  
+            if normalized_analysis:  
+                f.write(normalized_analysis + "\n\n") 
 
-with open('data/BTC_normalized.txt', 'w') as file:
-    file.write(normalized_text)
-
-
- 
-with open('data/ETH.txt', 'r') as file:
-    eth_text = file.read()
-
-normalized_text = normalize_text(eth_text)
-
-with open('data/ETH_normalized.txt', 'w') as file:
-    file.write(normalized_text)
-
+# نرمال‌سازی فایل‌های BTC و ETH
+process_file('data/BTC.txt', 'data/BTC_normalized.txt')
+process_file('data/ETH.txt', 'data/ETH_normalized.txt')
