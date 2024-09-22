@@ -74,6 +74,6 @@ def process_file(input_file, output_file):
             if normalized_analysis:  
                 f.write(normalized_analysis + "\n\n") 
 
-# نرمال‌سازی فایل‌های BTC و ETH
+
 process_file('data/BTC.txt', 'data/BTC_normalized.txt')
 process_file('data/ETH.txt', 'data/ETH_normalized.txt')
