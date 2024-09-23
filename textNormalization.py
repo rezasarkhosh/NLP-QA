@@ -70,7 +70,7 @@ def process_file(input_file, output_file):
 
     with open(output_file, 'w') as f:
         for analysis in analyses:
-            normalized_analysis = nصormalize_text(analysis.strip())  
+            normalized_analysis = normalize_text(analysis.strip())  
             if normalized_analysis:  
                 f.write(normalized_analysis + "\n\n") 
 
